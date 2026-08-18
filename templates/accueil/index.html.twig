@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Projet {% endblock %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{# Affichage du formulaire de saisie d'un tickect #}
+{% block body %}   
+    <h1 class="text-center">ENREGISTREMENT DE TICKETS</h1>
+    {{ form (form) }}        
+{% endblock %}  
+    
+
