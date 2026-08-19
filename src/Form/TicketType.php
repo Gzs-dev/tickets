@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TicketType extends AbstractType
 {
@@ -22,7 +23,8 @@ class TicketType extends AbstractType
                 'label'=>'Catégorie',
                 'class' => Categories::class,
                 'choice_label' => 'name',
-            ]);
+            ])
+            ->add('Enregistrer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

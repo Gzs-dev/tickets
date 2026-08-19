@@ -6,8 +6,12 @@
 
 {# Affichage du formulaire de saisie d'un tickect #}
 {% block body %}   
-    <h1 class="text-center">ENREGISTREMENT DE TICKETS</h1>
-    {{ form (form) }}        
-{% endblock %}  
+    <h2 class="text-center">ENREGISTREMENT DE TICKETS</h2>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+  
     
 

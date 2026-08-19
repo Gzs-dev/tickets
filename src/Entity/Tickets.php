@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TicketsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TicketsRepository::class)]
 class Tickets
@@ -15,15 +16,18 @@ class Tickets
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message: "L'email est obligatoire.")]
+    #[Assert\Email(message: "L'adresse '{{ value }}' n'est pas un email valide.")]
     private ?string $mailClient = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $openDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $closeDate = null;
 
     #[ORM\Column(length: 250)]
+    #[Assert\Length(min: 10, minMessage: "La description doit faire au moins 10 caractères.")]
     private ?string $descriptive = null;
 
     #[ORM\Column(length: 30, nullable: true)]
