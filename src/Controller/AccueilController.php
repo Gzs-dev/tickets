@@ -34,6 +34,7 @@ final class AccueilController extends AbstractController
 
         return $this->render('accueil/index.html.twig', [
             'form' => $form->createView(),
+            'titre' => 'SAISIE TICKET',
         ]);
         
     }

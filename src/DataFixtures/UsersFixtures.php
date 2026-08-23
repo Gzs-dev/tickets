@@ -11,15 +11,15 @@ class UsersFixtures extends Fixture
     private $users = array (
         ['mailUser'=>'ad00min@aaa.fr',
         'mdpUser'=>'Ti(k#e8La&',
-        'roleUser'=>'ADMIN'
+        'roleUser'=>['ROLE_ADMIN']
         ],
         ['mailUser'=>'st00aff@aaa.fr',
         'mdpUser'=>'Ck)l%83O]',
-        'roleUser'=>'USER'
+        'roleUser'=>['ROLE_USER']
         ],
         ['mailUser'=>'st01aff@aaa.fr',
         'mdpUser'=>'Ms<1Uq[é',
-        'roleUser'=>'USER'
+        'roleUser'=>['ROLE_USER']
         ],
     );
 

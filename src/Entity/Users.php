@@ -19,8 +19,8 @@ class Users
     #[ORM\Column(length: 250)]
     private ?string $mdpUser = null;
 
-    #[ORM\Column(length: 30)]
-    private ?string $roleUser = null;
+    #[ORM\Column]
+    private array $roleUser = [];
 
     public function getId(): ?int
     {
@@ -51,12 +51,14 @@ class Users
         return $this;
     }
 
-    public function getRoleUser(): ?string
+    public function getRoleUser(): array
     {
-        return $this->roleUser;
+        $roles = $this->roleUser;
+        $roles[]='ROLE_USER';
+        return array_unique($roles);
     }
 
-    public function setRoleUser(string $roleUser): static
+    public function setRoleUser(array $roleUser): static
     {
         $this->roleUser = $roleUser;
 

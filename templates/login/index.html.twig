@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Projet {% endblock %}
+{% block title %}Hello LoginController!{% endblock %}
 
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 
-
-{# Affichage du formulaire de saisie d'un tickect #}
 {% block body %}   
-    <h2 class="text-center">{{titre}}</h2>
+    {% if error %}
+        <span>{{ error }}</span>
+    {% endif %}
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
+
 {% endblock %}
-  
-    
+   
 

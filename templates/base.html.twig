@@ -15,7 +15,13 @@
     <header class="bg-body-tertiary">
         <h1 class="text-center">DECLARATION DES INCIDENTS</h1>
         <nav class="navbar">
-            <a class="btn btn-outline-primary" href="#" role="button">Se connecter</a>
+            {% if app.session.get('role') %}
+                <a class="btn btn-outline-primary" href="/logout" role="button">Se déconnecter</a>
+                {% else %}
+                <a class="btn btn-outline-primary" href="/login" role="button">Se connecter</a>
+            {% endif %}
+            
+            
         </nav>
     </header>
 
