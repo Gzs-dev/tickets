@@ -24,7 +24,7 @@ final class LoginController extends AbstractController
 
            $user = $usersRepository->findOneBy(['mailUser' => $email]); 
            
-           // 1. Email inconnu
+           // Email inconnu
            if (!$user) {
                 return $this->render('login/index.html.twig', [
                     'error' => 'Email inconnu',
@@ -32,7 +32,7 @@ final class LoginController extends AbstractController
                 ]);
             }
 
-            // 2. Mot de passe incorrect
+            // Mot de passe incorrect
             if ($user->getMdpUser() !== $password) {
                 return $this->render('login/index.html.twig', [
                     'error' => 'Mot de passe incorrect',
@@ -40,14 +40,14 @@ final class LoginController extends AbstractController
                 ]);
             }
 
-            // 3. Connexion OK
+            // Connexion OK
             $session = $request->getSession();
             $session->set('role', $user->getRoleUser()[0]);
 
             return $this->redirectToRoute('app_logger');
         }
 
-        // GET ou formulaire non valide afficher le formulaire login
+        // Afficher le formulaire login
         return $this->render('login/index.html.twig', [
             'form' => $form->createView(),
             'error' => null,

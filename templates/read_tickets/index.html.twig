@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ReadTicketsController!{% endblock %}
+
+
+
+{% block body %}
+
+{% set role = app.session.get('role') %}
+{% include 'menu.html.twig' %}
+
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Date ouverture</th>
+            <th scope="col">Date Fermeture</th>
+            <th scope="col">Descriptif</th>
+            <th scope="col">Responsable</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col">Etat</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for ticket in tickets %}
+        <tr>
+            <th scope="row">{{ ticket.id }}</td>
+            <td>{{ ticket.mailClient}}</td>
+            <td>{{ ticket.openDate|date('d/m/Y')}}</td>
+            {% if ticket.closeDate %}
+                <td>{{ ticket.closeDate|date('d/m/Y') }}</td>
+                {% else %}
+                    <td>-</td>
+            {% endif %}
+            <td>{{ ticket.descriptive}}</td>
+            {% if ticket.responsable %}
+                <td>{{ ticket.responsable }}</td>
+                {% else %}
+                    <td>-</td>
+            {%  endif %}
+            <td>{{ ticket.category.name}}</td>
+            <td>{{ ticket.state.name }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

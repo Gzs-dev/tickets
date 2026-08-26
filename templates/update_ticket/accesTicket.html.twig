@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UpdateTicketController!{% endblock %}
+
+{% block body %}
+    {% set role = app.session.get('role') %}
+    {% include 'menu.html.twig' %} 
+    <form method="post">
+        <input type="number" name="ticket_id" placeholder="ID du ticket">
+        <button type="submit">Accéder</button>
+    </form>
+    {% set msg = app.request.get('msg') %}
+    {% if msg %}
+        <p>{{msg}}</p>
+    {% endif %}
+{% endblock %}

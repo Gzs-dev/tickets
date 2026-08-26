@@ -13,7 +13,7 @@ final class LoggerController extends AbstractController
     #[Route('/logger', name: 'app_logger')]
     public function index(Request $request): Response
     {
-        // Evite un accés direct sur la route logger
+        // Evite un accés direct sur la route logger si pas connecté
         if (!$request->getsession()->get('role')) {
             return $this->redirectToRoute('app_accueil');
         }

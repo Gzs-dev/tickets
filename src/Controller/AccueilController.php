@@ -21,8 +21,10 @@ final class AccueilController extends AbstractController
         $form = $this->createForm(TicketType::class, $ticket);
         
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {          
-            $ticket = $form->getData();
+        if ($form->isSubmitted() && $form->isValid()) {  
+            //récupère le mail, la description et la catégorie        
+            $ticket = $form->getData();  
+            // Remplit les autres champs de l'entité
             $ticket->setOpenDate(new DateTime());
             $ticket->setCloseDate(null);
             $ticket->setState($stateRepository->find(1));

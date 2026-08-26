@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/read/tickets">Lecture de tickets</a>
+                </li>               
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" 
+                        href="#" 
+                        id="adminMenu" 
+                        role="button" 
+                        data-bs-toggle="dropdown">Modifier un ticket
+                    </a>
+                    <ul class="dropdown-menu">                        
+                        {% if  role == "ROLE_ADMIN" %}
+                            <li><a class="dropdown-item" href="#">Modifier les états</a></li>
+                            <li><a class="dropdown-item" href="#">Modifier les statuts</a></li>
+                        {%  endif %}
+                        <li><a class="dropdown-item" href="/update/ticket">Mettre à jour le ticket</a></li>
+                    </ul>
+                </li>              
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Accueil</a>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+</nav>

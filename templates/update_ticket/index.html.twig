@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UpdateTicketController!{% endblock %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+    
+{# Affichage du ticket choisi dans formulaire #}
+{% block body %}
+    {% set role = app.session.get('role') %}
+    {% include 'menu.html.twig' %}
+
+    
+    <h2 class="text-center">{{titre}}</h2>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+
