@@ -14,7 +14,8 @@ final class ReadTicketsController extends AbstractController
     {
         $tickets = $ticketsRepository->findAll();
         return $this->render('read_tickets/index.html.twig', [
-        'tickets' => $tickets
+        'tickets' => $tickets,
+        'titre'=>'Tickets enregistrés',
     ]);
 }
 

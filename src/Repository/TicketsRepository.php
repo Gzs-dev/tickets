@@ -16,28 +16,23 @@ class TicketsRepository extends ServiceEntityRepository
         parent::__construct($registry, Tickets::class);
     }
 
-    //    /**
-    //     * @return Tickets[] Returns an array of Tickets objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       public function countTicketsByState(int $stateId): int
+       {
+           return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->where('t.state = :stateId')
+            ->setParameter('stateId', $stateId)
+            ->getQuery()
+            ->getSingleScalarResult();
+       }
 
-    //    public function findOneBySomeField($value): ?Tickets
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function countTicketsByCategory(int $categoryId): int
+       {
+           return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->where('t.category = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->getQuery()
+            ->getSingleScalarResult();
+       }
 }

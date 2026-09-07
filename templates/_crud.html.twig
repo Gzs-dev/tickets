@@ -1,0 +1,42 @@
+{% set role = app.session.get('role') %}
+{% include "_menu.html.twig" %}
+
+<article class="d-flex justify-content-around mt-5">
+    <section>
+        <h3>Etats actuel</h3>
+        {% for state in states %}
+        <ul class="list-group">
+            <li class="list-group-item">{{state.name}}</li>
+        </ul>
+        {% endfor %}
+    </section>
+    <section>
+        <h3>Rajout d'un nouvel état</h3>
+        <form action="{{ path('app_states_create') }}" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Etats</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Rajouter</button>
+        </form>
+    </section>    
+    <section>
+        <h3>Mettre à jour un état</h3>
+        <form action="{{ path('app_states_update') }}" method="post">
+            {% for state in states %}               
+                <input type="text" class="form-control" id="states_{{ state.id }}" name="states[{{ state.id }}]" value="{{ state.name }}">             
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-sm">Mettre à jour</button>
+        </form>             
+    </section>
+        <section>
+            <h3>Effacer un état</h3>
+            {% for state in states %}
+            <ul class="list-group">
+                <a href="/states/delete/{{ state.id }}" class="list-group-item list-group-item-action">{{state.name}}</a>
+            </ul>
+            {% endfor %}
+            <p>{{ msgDel }}</p>
+        </section>
+    </article>
+

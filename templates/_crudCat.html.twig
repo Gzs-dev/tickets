@@ -1,0 +1,41 @@
+{% set role = app.session.get('role') %}
+{% include "_menu.html.twig" %}
+
+<article class="d-flex justify-content-around mt-5">
+    <section>
+        <h3>Statuts actuels</h3>
+        {% for category in categories %}
+        <ul class="list-group">
+            <li class="list-group-item">{{category.name}}</li>
+        </ul>
+        {% endfor %}
+    </section>
+    <section>
+        <h3>Rajout d'un nouveau statut</h3>
+        <form action="{{ path('app_category_create') }}" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Catégories</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Rajouter</button>
+        </form>
+    </section>    
+    <section>
+        <h3>Mettre à jour un statut</h3>
+        <form action="{{ path('app_category_update') }}" method="post">
+            {% for category in categories %}               
+                <input type="text" class="form-control" id="category_{{ category.id }}" name="categories[{{ category.id }}]" value="{{ category.name }}">             
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-sm">Mettre à jour</button>
+        </form>             
+    </section>
+        <section>
+            <h3>Effacer un statut</h3>
+            {% for category in categories %}
+            <ul class="list-group">
+                <a href="/category/delete/{{ category.id }}" class="list-group-item list-group-item-action">{{category.name}}</a>
+            </ul>
+            {% endfor %}
+            <p>{{ msgDel }}</p>
+        </section>
+    </article>
