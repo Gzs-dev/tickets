@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class LoggerController extends AbstractController
 {
-    // #[IsGRanted('ROLE_ADMIN')]    
+    // #[IsGRanted('ROLE_ADMIN')] ??   
     #[Route('/logger', name: 'app_logger')]
     public function index(Request $request): Response
     {

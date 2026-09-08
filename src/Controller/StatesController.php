@@ -18,6 +18,10 @@ final class StatesController extends AbstractController
     #[Route('/states', name: 'app_states')]
     public function Read(StatesRepository $statesRepository, Request $request): Response
     {        
+         // Evite un accés direct sur la route states si pas connecté
+        if (!$request->getsession()->get('role')) {
+            return $this->redirectToRoute('app_accueil');
+        }
         $msgDel = $request->query->get('msgDel');
         $states = $statesRepository->findAll();       
         return $this->render('states/index.html.twig', [
@@ -28,8 +32,12 @@ final class StatesController extends AbstractController
     }
 
      #[Route('/states/delete/{id}', name: 'app_states_delete')]
-    public function delete(int $id, TicketsRepository $ticketsRepository, StatesRepository $statesRepository, EntityManagerInterface $entityManager): Response
+    public function delete(int $id, TicketsRepository $ticketsRepository, StatesRepository $statesRepository, EntityManagerInterface $entityManager, Request $request): Response
     {       
+         // Evite un accés direct sur la route states/delete si pas connecté
+        if (!$request->getsession()->get('role')) {
+            return $this->redirectToRoute('app_accueil');
+        }
         $states = $statesRepository->find($id);  
         $count = $ticketsRepository->countTicketsByState($id); 
         if ($count > 0){
@@ -47,6 +55,10 @@ final class StatesController extends AbstractController
     public function update(StatesRepository $statesRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
     
+         // Evite un accés direct sur la route states/update si pas connecté
+        if (!$request->getsession()->get('role')) {
+            return $this->redirectToRoute('app_accueil');
+        }
         $data = $request->request->all('states'); 
         
         foreach ($data as $id => $newName) {
@@ -64,6 +76,10 @@ final class StatesController extends AbstractController
     #[Route('/states/create/', name: 'app_states_create')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
+         // Evite un accés direct sur la route state/create si pas connecté
+        if (!$request->getsession()->get('role')) {
+            return $this->redirectToRoute('app_accueil');
+        }
         $name = $request->request->get('name')   ;
         $state = new States();
         $state->setName($name);

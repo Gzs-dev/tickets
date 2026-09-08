@@ -15,6 +15,10 @@ final class UpdateTicketController extends AbstractController
     #[Route('update/ticket', name: 'app_update')]
     public function access(Request $request): Response
         {
+             // Evite un accés direct sur la route update/ticket si pas connecté
+            if (!$request->getsession()->get('role')) {
+            return $this->redirectToRoute('app_accueil');
+        }
             if ($request->isMethod('POST')) {
             $id = $request->request->get('ticket_id');
 
@@ -28,6 +32,10 @@ final class UpdateTicketController extends AbstractController
     #[Route('/update/ticket/{id}', name: 'app_update_ticket')]
     public function index(int $id, TicketsRepository $ticketsRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+         // Evite un accés direct sur la route update/ticket/id si pas connecté
+        if (!$request->getsession()->get('role')) {
+            return $this->redirectToRoute('app_accueil');
+        }
         $ticket = $ticketsRepository->find($id);
         if (!$ticket){
             return $this->redirectToRoute('app_update',['msg'=>"Le ticket demandé n'existe pas"]);
@@ -38,7 +46,7 @@ final class UpdateTicketController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
             return $this->redirectToRoute('app_update',['msg'=>'Le ticket est bien mis à jour']);
-}
+        }
 
         return $this->render('update_ticket/index.html.twig', [
             'form' => $form->createView(),

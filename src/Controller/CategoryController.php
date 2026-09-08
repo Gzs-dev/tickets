@@ -19,6 +19,10 @@ final class CategoryController extends AbstractController
     #[Route('/category', name: 'app_category')]
     public function index(CategoriesRepository $categoriesRepository, Request $request): Response
     {
+         // Evite un accés direct sur la route category si pas connecté
+        if (!$request->getsession()->get('role')) {
+            return $this->redirectToRoute('app_accueil');
+        }
         $msgDel = $request->query->get('msgDel');
         $categories = $categoriesRepository->findAll();       
         return $this->render('category/index.html.twig', [
@@ -29,9 +33,13 @@ final class CategoryController extends AbstractController
     }
 
       #[Route('/category/delete/{id}', name: 'app_category_delete')]
-    public function delete(int $id, TicketsRepository $ticketsRepository, CategoriesRepository $categoriesRepository, EntityManagerInterface $entityManager): Response
+    public function delete(int $id, TicketsRepository $ticketsRepository, CategoriesRepository $categoriesRepository, EntityManagerInterface $entityManager, Request $request): Response
     {       
-        $categories = $categoriesRepository->find($id);  
+     // Evite un accés direct sur la route category/delete si pas connecté
+        if (!$request->getsession()->get('role')) {
+            return $this->redirectToRoute('app_accueil');
+        }    
+    $categories = $categoriesRepository->find($id);  
         $count = $ticketsRepository->countTicketsByCategory($id); 
         if ($count > 0){
             $this->msgDel = "statut utilisé par des tickets, ne peut être supprimé";
@@ -48,6 +56,10 @@ final class CategoryController extends AbstractController
     public function update(CategoriesRepository $categoriesRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
     
+         // Evite un accés direct sur la route category/update si pas connecté
+        if (!$request->getsession()->get('role')) {
+            return $this->redirectToRoute('app_accueil');
+        }
         $data = $request->request->all('categories'); 
         
         foreach ($data as $id => $newName) {
@@ -65,6 +77,10 @@ final class CategoryController extends AbstractController
     #[Route('/category/create/', name: 'app_category_create')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
+         // Evite un accés direct sur la route category/create si pas connecté
+        if (!$request->getsession()->get('role')) {
+            return $this->redirectToRoute('app_accueil');
+        }
         $name = $request->request->get('name')   ;
         $category = new Categories();
         $category->setName($name);
